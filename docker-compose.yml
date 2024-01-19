@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./api/src:/app/src
+    command: ["npm", "run", "start"]
+  cliente:
+    build:
+      context: ./cliente
+      dockerfile: ./Dockerfile.dev
+    ports: 
+      - 3000:3000
+    volumes:
+      - ./cliente/src:/app/src
+    command: ["npm", "run", "start"]
