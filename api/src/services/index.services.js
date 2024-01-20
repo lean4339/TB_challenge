@@ -49,7 +49,18 @@ class IndexServices {
                 method: 'GET',
                 responseType: 'arraybuffer',
             })
-            const stream = fs.createWriteStream(`/app/src/files/${file}`)
+            console.log(fileData.data)
+            let directory =  path.resolve('src/files');
+                    if (!fs.existsSync(directory)) {
+                        directory = path.resolve('app/src/files');
+                    }
+                    try {
+                        
+                        
+                        const stream = fs.createWriteStream(path.join(directory, file))
+                    } catch (error) {
+                    console.log('aqyui')
+                    }
             stream.on('error', (err) => {
                 console.error('Error al escribir en el archivo:', err);
             });
@@ -57,7 +68,8 @@ class IndexServices {
             stream.end();
             return file
         } catch (error) {
-            return error
+            console.error({ error: error.message, file: file })
+            return null
         }
     }
 }

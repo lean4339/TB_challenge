@@ -6,7 +6,7 @@ router.get('/files/data', async (req, res) => {
     try {
         const query = req.query.filename
         if(query){
-            const data = await IndexController.getItems(query)
+            const data = await IndexController.getItem(query)
             //req.setHeader('Content-Type', 'application/json')
             res.status(200).send(data)
         } else {
@@ -15,7 +15,7 @@ router.get('/files/data', async (req, res) => {
             res.status(200).send(data)
         }
     } catch (error) {
-        res.status(error.status || 500).send({status: error.status, error: error.message})
+        res.status(error.status || 500).send({status: error.status, error: error.message, files: []})
     }
 })
 
